@@ -62,7 +62,7 @@ program main
       !$acc end kernels
       ! print *, "iter=", iter, "uerr=", uerr,"errtol=",errtol
       ! if (uerr .lt. errtol) then
-         ! exit
+      ! exit
       ! end if
    enddo
    call cpu_time(tend)

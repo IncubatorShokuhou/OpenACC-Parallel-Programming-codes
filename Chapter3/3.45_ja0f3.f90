@@ -55,15 +55,15 @@ program main
       uerr = 0.
       !$omp parallel do reduction(max:uerr) default(none) &
       !$omp shared(c1,c2,fij,hy2,hx2) shared(u1,u0) &
-      !$omp private(ix,jy) 
+      !$omp private(ix,jy)
       do jy = 1, ny - 1
          do ix = 1, mx - 1
             u0(ix, jy) = (fij*c1 + hy2*(u1(ix - 1, jy) + u1(ix + 1, jy)) + hx2*(u1(ix, jy - 1) + u1(ix, jy + 1)))*c2
-            uerr = max(uerr,abs(u0(ix, jy)-u1(ix, jy)))
+            uerr = max(uerr, abs(u0(ix, jy) - u1(ix, jy)))
          enddo
       enddo
       !$omp end parallel do
-      print *, "iter=", iter, "uerr=", uerr,"errtol=",errtol
+      print *, "iter=", iter, "uerr=", uerr, "errtol=", errtol
       if (uerr .lt. errtol) then
          exit
       end if

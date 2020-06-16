@@ -9,7 +9,7 @@ program main
    !$acc parallel
    !$acc loop reduction(min:ired)
    do i = 1, N
-      ired = min(ired,a(i))
+      ired = min(ired, a(i))
    enddo
    !$acc end loop
    !$acc end parallel

@@ -15,7 +15,7 @@ program main
    do i = 1, N
       a(i) = b(i) + c(i)
    enddo
-!$acc loop 
+!$acc loop
 !!$acc loop independent
    do i = 2, N
       b(i) = b(i - 1)
