@@ -10,7 +10,9 @@ program main
       c(i) = i
    enddo
 
-!$acc kernels present(a)
+!$acc kernels present(a)    !这样执行编译会有错误。编译时，会自动添加b和c的copyin，而用了present后，
+                            !告诉了编译器a已经在设备内存里了，而实际上a并不在。
+                        !错误语句：FATAL ERROR: data in PRESENT clause was not found on device 1: name=a host:0x6045a0
    do i = 1, N
       a(i) = b(i) + c(i)
    enddo
