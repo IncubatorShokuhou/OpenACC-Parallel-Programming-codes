@@ -49,18 +49,18 @@ program main
             u1(ix, jy) = (fij*c1 + hy2*(u0(ix - 1, jy) + u0(ix + 1, jy)) + hx2*(u0(ix, jy - 1) + u0(ix, jy + 1)))*c2
          enddo
       enddo
-      uerr = 0.
+    !   uerr = 0.
       do jy = 1, ny - 1
          do ix = 1, mx - 1
             u0(ix, jy) = (fij*c1 + hy2*(u1(ix - 1, jy) + u1(ix + 1, jy)) + hx2*(u1(ix, jy - 1) + u1(ix, jy + 1)))*c2
-            uerr = max(uerr,abs(u0(ix, jy)-u1(ix, jy)))
+            ! uerr = max(uerr,abs(u0(ix, jy)-u1(ix, jy)))
          enddo
       enddo
-      print *, "iter=", iter, "uerr=", uerr,"errtol=",errtol
-      if (uerr .lt. errtol) then
-         print*, "uerr =",uerr,"errtol =",errtol," exit"
-         exit
-      end if
+    !   print *, "iter=", iter, "uerr=", uerr,"errtol=",errtol
+    !   if (uerr .lt. errtol) then
+        !  print*, "uerr =",uerr,"errtol =",errtol," exit"
+        !  exit
+    !   end if
    enddo
    call cpu_time(tend)
    print *, "ElapsedTime =", tend - tstart, " seconds"
