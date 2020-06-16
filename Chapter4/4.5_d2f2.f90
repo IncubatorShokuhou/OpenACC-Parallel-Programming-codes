@@ -10,7 +10,7 @@ program main
       c(i) = i
    enddo
 !$acc data create(a)
-!$acc kernels present(a)   
+!$acc kernels present(a)
    do i = 1, N
       a(i) = b(i) + c(i)
    enddo
