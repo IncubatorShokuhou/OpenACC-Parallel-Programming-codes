@@ -44,22 +44,29 @@ program main
    call cpu_time(tstart)
    ! main iterationsl
    do iter = 1, maxiter, 2
+      !$omp parallel do default(none) shared(c1,c2,fij,hy2,hx2)  &
+      !$omp shared(u1,u0) private(ix,jy)
       do jy = 1, ny - 1
          do ix = 1, mx - 1
             u1(ix, jy) = (fij*c1 + hy2*(u0(ix - 1, jy) + u0(ix + 1, jy)) + hx2*(u0(ix, jy - 1) + u0(ix, jy + 1)))*c2
          enddo
       enddo
-    !   uerr = 0.
+      !$omp end parallel do
+      uerr = 0.
+      !$omp parallel do reduction(max:uerr) default(none) &
+      !$omp shared(c1,c2,fij,hy2,hx2) shared(u1,u0) &
+      !$omp private(ix,jy) 
       do jy = 1, ny - 1
          do ix = 1, mx - 1
             u0(ix, jy) = (fij*c1 + hy2*(u1(ix - 1, jy) + u1(ix + 1, jy)) + hx2*(u1(ix, jy - 1) + u1(ix, jy + 1)))*c2
-            ! uerr = max(uerr,abs(u0(ix, jy)-u1(ix, jy)))
+            uerr = max(uerr,abs(u0(ix, jy)-u1(ix, jy)))
          enddo
       enddo
-    !   print *, "iter=", iter, "uerr=", uerr,"errtol=",errtol
-    !   if (uerr .lt. errtol) then
-        !  exit
-    !   end if
+      !$omp end parallel do
+      print *, "iter=", iter, "uerr=", uerr,"errtol=",errtol
+      if (uerr .lt. errtol) then
+         exit
+      end if
    enddo
    call cpu_time(tend)
    print *, "ElapsedTime =", tend - tstart, " seconds"

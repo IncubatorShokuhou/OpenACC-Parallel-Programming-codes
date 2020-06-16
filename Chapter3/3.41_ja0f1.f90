@@ -58,7 +58,6 @@ program main
       enddo
       print *, "iter=", iter, "uerr=", uerr,"errtol=",errtol
       if (uerr .lt. errtol) then
-         print*, "uerr =",uerr,"errtol =",errtol," exit"
          exit
       end if
    enddo
