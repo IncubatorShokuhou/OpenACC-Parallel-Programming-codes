@@ -15,3 +15,6 @@ program main
    !$acc end kernels
    print *, "a(N)=", a(N)
 end program
+!编译器反馈：
+!11, Generating implicit copy(a(:)) [if not already present]
+!   Generating implicit copyin(b(:)) [if not already present]
