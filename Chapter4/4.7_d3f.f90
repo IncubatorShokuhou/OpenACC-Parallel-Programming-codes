@@ -17,4 +17,5 @@ program main
 end program
 !编译器反馈：
 !11, Generating implicit copy(a(:)) [if not already present]
-!   Generating implicit copyin(b(:)) [if not already present]
+!   Generating implicit copyin(b(:)) [if not already present] 
+!b用到了，但是没有修改，所以不需要从设备再拷贝回主机
