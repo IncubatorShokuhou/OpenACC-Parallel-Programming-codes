@@ -16,7 +16,7 @@ program main
       tmp = tmp*x(i)*x(i)
       sinx(i) = sinx(i) + tmp/120
    enddo
-   !acc end kernels loop
+   !$acc end kernels loop
 
    print *, "x(1) =", x(1), "sinx(1) =", sinx(1)
 end program
